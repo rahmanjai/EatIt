@@ -1,5 +1,6 @@
 package com.proyek.rahmanjai.eatit;
 
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -21,7 +22,7 @@ import android.widget.Toast;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.proyek.rahmanjai.eatit.Common.Category;
+import com.proyek.rahmanjai.eatit.Model.Category;
 import com.proyek.rahmanjai.eatit.Common.Common;
 import com.proyek.rahmanjai.eatit.Interface.ItemClickListener;
 import com.proyek.rahmanjai.eatit.ViewHolder.MenuViewHolder;
@@ -37,6 +38,8 @@ public class Home extends AppCompatActivity
 
     RecyclerView recycler_menu;
     RecyclerView.LayoutManager layoutManager;
+
+    FirebaseRecyclerAdapter<Category, MenuViewHolder> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +90,7 @@ public class Home extends AppCompatActivity
 
     private void loadMenu() {
 
-        FirebaseRecyclerAdapter<Category, MenuViewHolder> adapter = new FirebaseRecyclerAdapter<Category,
+        adapter = new FirebaseRecyclerAdapter<Category,
                 MenuViewHolder>(Category.class,R.layout.menu_item,MenuViewHolder.class,category) {
             @Override
             protected void populateViewHolder(MenuViewHolder viewHolder, Category model, int position) {
@@ -98,7 +101,11 @@ public class Home extends AppCompatActivity
                 viewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onClick(View view, int position, boolean isLongClik) {
-                        Toast.makeText(Home.this,""+clickItem.getNama(), Toast.LENGTH_SHORT).show();
+                        //Get CategoryId and Send to new activity
+                        Intent intent = new Intent(Home.this, FoodList.class);
+                        //Karena kategori adalah key, maka kita hanya mendapatkan key dari item ini saja
+                        intent.putExtra("CategoryId", adapter.getRef(position).getKey());
+                        startActivity(intent);
                     }
                 });
             }

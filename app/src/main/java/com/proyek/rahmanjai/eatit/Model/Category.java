@@ -1,4 +1,4 @@
-package com.proyek.rahmanjai.eatit.Common;
+package com.proyek.rahmanjai.eatit.Model;
 
 /**
  * Created by rahmanjai on 31/03/2018.
