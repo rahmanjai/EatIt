@@ -5,24 +5,24 @@ package com.proyek.rahmanjai.eatit.Model;
  */
 
 public class User {
-    private String Name;
+    private String Nama;
     private String Password;
 
     public User() {
 
     }
 
-    public User(String name, String password){
-        Name = name;
+    public User(String nama, String password){
+        Nama = nama;
         Password = password;
     }
 
-    public String getName() {
-        return Name;
+    public String getNama() {
+        return Nama;
     }
 
-    public void setName(String name) {
-        Name = name;
+    public void setNama(String nama) {
+        Nama = nama;
     }
 
     public String getPassword() {

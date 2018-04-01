@@ -42,7 +42,7 @@
             android:text="Jailani Rahman"
             android:textColor="@android:color/white"
             android:textSize="34sp"
-            android:inputType="phone"
+            android:inputType="text"
             app:met_baseColor="@android:color/white"
             app:met_floatingLabel="highlight"
             app:met_maxCharacters="11"

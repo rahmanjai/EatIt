@@ -1,6 +1,7 @@
 package com.proyek.rahmanjai.eatit;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.proyek.rahmanjai.eatit.Common.Common;
 import com.proyek.rahmanjai.eatit.Model.User;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
@@ -53,6 +55,10 @@ public class SignIn extends AppCompatActivity {
                             User user = dataSnapshot.child(edtPhone.getText().toString()).getValue(User.class);
                             if (user.getPassword().equals(edtPassword.getText().toString())) {
                                 Toast.makeText(SignIn.this, "SignIn Berhasil!!!", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent (SignIn.this, Home.class);
+                                Common.currentUser = user;
+                                startActivity(intent);
+                                finish();
                             } else {
                                 Toast.makeText(SignIn.this, "Password Salah!!!", Toast.LENGTH_SHORT).show();
                             }
