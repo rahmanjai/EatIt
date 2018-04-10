@@ -20,6 +20,10 @@ android {
 
 dependencies {
 
+    // Ditambahkan di tutorial 4
+    implementation 'com.cepheuen.elegant-number-button:lib:1.0.2'
+    implementation 'com.android.support:design:26.1.0'
+
     //Fixed Crash Fbutton
     implementation('com.github.jd-alexander:android-flat-button:v1.1')
 
@@ -39,6 +43,7 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.firebaseui:firebase-ui-database:1.2.0'
 }
+
 
 
 
