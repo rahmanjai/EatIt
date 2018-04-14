@@ -7,14 +7,23 @@ package com.proyek.rahmanjai.eatit.Model;
 public class User {
     private String Nama;
     private String Password;
+    private String Phone;
 
     public User() {
 
     }
 
-    public User(String nama, String password){
+    public User(String nama, String password) {
         Nama = nama;
         Password = password;
+    }
+
+    public String getPhone() {
+        return Phone;
+    }
+
+    public void setPhone(String phone) {
+        Phone = phone;
     }
 
     public String getNama() {

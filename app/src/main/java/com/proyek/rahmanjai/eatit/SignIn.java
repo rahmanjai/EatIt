@@ -53,6 +53,7 @@ public class SignIn extends AppCompatActivity {
                             //Mengambi Informasi User
                             mDialog.dismiss();
                             User user = dataSnapshot.child(edtPhone.getText().toString()).getValue(User.class);
+                            user.setPhone(edtPhone.getText().toString()); // set Phone
                             if (user.getPassword().equals(edtPassword.getText().toString())) {
                                 Toast.makeText(SignIn.this, "SignIn Berhasil!!!", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent (SignIn.this, Home.class);
