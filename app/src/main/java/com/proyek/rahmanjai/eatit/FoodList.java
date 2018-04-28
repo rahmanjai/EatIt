@@ -54,7 +54,7 @@ public class FoodList extends AppCompatActivity {
         adapter = new FirebaseRecyclerAdapter<Food, FoodViewHolder>(Food.class,
                 R.layout.food_item,
                 FoodViewHolder.class,
-                foodList.orderByChild("MenuId").equalTo(categoryId) // Like : Select * From Foods where MenuId =
+                foodList.orderByChild("menuId").equalTo(categoryId) // Like : Select * From Foods where MenuId =
                 ) {
             @Override
             protected void populateViewHolder(FoodViewHolder viewHolder, Food model, int position) {

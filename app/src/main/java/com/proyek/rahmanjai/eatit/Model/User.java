@@ -8,6 +8,7 @@ public class User {
     private String Nama;
     private String Password;
     private String Phone;
+    private String IsStaff;
 
     public User() {
 
@@ -16,6 +17,15 @@ public class User {
     public User(String nama, String password) {
         Nama = nama;
         Password = password;
+        IsStaff = "false";
+    }
+
+    public String getIsStaff() {
+        return IsStaff;
+    }
+
+    public void setIsStaff(String isStaff) {
+        IsStaff = isStaff;
     }
 
     public String getPhone() {
