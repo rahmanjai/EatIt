@@ -20,6 +20,9 @@ android {
 
 dependencies {
 
+    //Ditambah Ditutorial 7 - Fungsi Pencarian
+    implementation 'com.github.mancj:MaterialSearchBar:0.7.1'
+
     // Ditambahkan di tutorial 5
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
     implementation 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'

@@ -4,11 +4,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.proyek.rahmanjai.eatit.Common.Common;
+import com.proyek.rahmanjai.eatit.Interface.ItemClickListener;
 import com.proyek.rahmanjai.eatit.Model.Request;
 import com.proyek.rahmanjai.eatit.ViewHolder.OrderViewHolder;
 
@@ -54,6 +56,13 @@ public class OrderStatus extends AppCompatActivity {
                 viewHolder.txtOrderStatus.setText(convertCodeToStatus(model.getStatus()));
                 viewHolder.txtOrderAddres.setText(model.getAddress());
                 viewHolder.txtOrderPhone.setText(model.getPhone());
+
+                viewHolder.setItemClickListener(new ItemClickListener() {
+                    @Override
+                    public void onClick(View view, int position, boolean isLongClik) {
+
+                    }
+                });
             }
         };
         recyclerView.setAdapter(adapter);
