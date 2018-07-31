@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -63,7 +65,10 @@ public class Cart extends AppCompatActivity {
         btnPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showAlertDialog();
+                if (cart.size() > 0)
+                    showAlertDialog();
+                else
+                    Toast.makeText(Cart.this, "Keranjang Anda Kosong!!", Toast.LENGTH_SHORT).show();
             }
         });
         
@@ -120,6 +125,7 @@ public class Cart extends AppCompatActivity {
     private void loadListFood() {
         cart = new Database(this).getCarts();
         adapter = new CartAdapter(cart, this);
+        adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
 
         // Kalkulasi total harga
@@ -130,6 +136,25 @@ public class Cart extends AppCompatActivity {
         NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
 
         txtTotalPrice.setText(fmt.format(total));
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        if (item.getTitle().equals(Common.DELETE))
+            deleteCart(item.getOrder());
+        return true;
+    }
+
+    private void deleteCart(int position) {
+        //Kita akan menghapus item pada List<Order> berdasarkan posisi
+        cart.remove(position);
+        //Setelah itu, kita akan menghapus semua data yang lama dari SQLite
+        new Database(this).cleanCart();
+        //dan terakhir, kita akan mengupdate data baru dari List<Order> ke SQlite
+        for (Order item:cart)
+            new Database(this).addToCart(item);
+        //refresh
+        loadListFood();
     }
 }
 

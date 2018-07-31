@@ -40,40 +40,46 @@ public class SignIn extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                final ProgressDialog mDialog = new ProgressDialog(SignIn.this);
-                mDialog.setMessage("Mohon Tunggu...");
-                mDialog.show();
+                if (Common.isConnectedToInternet(getBaseContext())) {
 
-                table_user.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                    final ProgressDialog mDialog = new ProgressDialog(SignIn.this);
+                    mDialog.setMessage("Mohon Tunggu...");
+                    mDialog.show();
 
-                        // Mengecek Jika User Tidak ada di database
-                        if (dataSnapshot.child(edtPhone.getText().toString()).exists()) {
-                            //Mengambi Informasi User
-                            mDialog.dismiss();
-                            User user = dataSnapshot.child(edtPhone.getText().toString()).getValue(User.class);
-                            user.setPhone(edtPhone.getText().toString()); // set Phone
-                            if (user.getPassword().equals(edtPassword.getText().toString())) {
-                                Toast.makeText(SignIn.this, "SignIn Berhasil!!!", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent (SignIn.this, Home.class);
-                                Common.currentUser = user;
-                                startActivity(intent);
-                                finish();
+                    table_user.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            // Mengecek Jika User Tidak ada di database
+                            if (dataSnapshot.child(edtPhone.getText().toString()).exists()) {
+                                //Mengambi Informasi User
+                                mDialog.dismiss();
+                                User user = dataSnapshot.child(edtPhone.getText().toString()).getValue(User.class);
+                                user.setPhone(edtPhone.getText().toString()); // set Phone
+                                if (user.getPassword().equals(edtPassword.getText().toString())) {
+                                    Toast.makeText(SignIn.this, "SignIn Berhasil!!!", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(SignIn.this, Home.class);
+                                    Common.currentUser = user;
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    Toast.makeText(SignIn.this, "Password Salah!!!", Toast.LENGTH_SHORT).show();
+                                }
                             } else {
-                                Toast.makeText(SignIn.this, "Password Salah!!!", Toast.LENGTH_SHORT).show();
+                                mDialog.dismiss();
+                                Toast.makeText(SignIn.this, "Nomor anda belum terdaftar!!!", Toast.LENGTH_SHORT).show();
                             }
-                        } else {
-                            mDialog.dismiss();
-                            Toast.makeText(SignIn.this, "Nomor anda belum terdaftar!!!", Toast.LENGTH_SHORT).show();
                         }
-                    }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                    }
-                });
+                        }
+                    });
+                } else {
+                    Toast.makeText(SignIn.this, "Mohon periksa sambungan internet anda!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
         });
 

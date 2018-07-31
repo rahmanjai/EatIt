@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mancj.materialsearchbar.MaterialSearchBar;
+import com.proyek.rahmanjai.eatit.Common.Common;
 import com.proyek.rahmanjai.eatit.Interface.ItemClickListener;
 import com.proyek.rahmanjai.eatit.Model.Food;
 import com.proyek.rahmanjai.eatit.ViewHolder.FoodViewHolder;
@@ -61,7 +62,11 @@ public class FoodList extends AppCompatActivity {
         if (getIntent() != null)
             categoryId = getIntent().getStringExtra("CategoryId");
         if (!categoryId.isEmpty() && categoryId != null){
-            loadListFood(categoryId);
+            if (Common.isConnectedToInternet(getBaseContext()))
+                loadListFood(categoryId);
+            else {
+                Toast.makeText(FoodList.this, "Mohon periksa koneksi internet anda!", Toast.LENGTH_SHORT).show();
+            }
         }
 
         //Pencarian

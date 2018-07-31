@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.proyek.rahmanjai.eatit.Common.Common;
 import com.proyek.rahmanjai.eatit.Database.Database;
 import com.proyek.rahmanjai.eatit.Model.Food;
 import com.proyek.rahmanjai.eatit.Model.Order;
@@ -76,7 +77,11 @@ public class FoodDetail extends AppCompatActivity {
         if (getIntent() != null)
             foodId = getIntent().getStringExtra("FoodId");
         if (!foodId.isEmpty()){
-            getDetailFood(foodId);
+            if (Common.isConnectedToInternet(getBaseContext()))
+                getDetailFood(foodId);
+            else {
+                Toast.makeText(FoodDetail.this, "Mohon periksa koneksi internet anda!", Toast.LENGTH_SHORT).show();
+            }
         }
 
     }
